@@ -127,7 +127,7 @@ trait Parsers[ParseError, Parser[+_]] { self =>
   implicit def string(s: String): Parser[String]
   implicit def operators[A](p: Parser[A]) = ParserOps[A](p)
   
-  // StringがaParserへ自動的に昇格される
+  // StringがParserへ自動的に昇格される
   implicit def asStringParser[A](a: A)(implicit f: A => Parser[String]):
     ParserOps[String] = ParserOps(f(a))
   
@@ -283,7 +283,8 @@ def **[B](p2: => Parser[B]): Parser[(A,B)] =
 これを使って、many をベースとして many1 を実装せよ。
 
 ```
-def map2[A, B, C](p: Parser[A], p2: Parser[B])(f: (A, B) => C): Parser[C]
+def map2[A, B, C](p: Parser[A], p2: Parser[B])(f: (A, B) => C): 
+  Parser[C]
 ```
 
 ---
